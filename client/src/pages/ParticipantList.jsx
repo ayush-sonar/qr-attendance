@@ -11,10 +11,10 @@ const ParticipantList = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(25);
   const [numberofpages, setNumberofpages] = useState(1);
-
-  const [isQRModalOpen, setIsQRModalOpen] = useState(false); // Modal state
-  const [currentParticipantId, setCurrentParticipantId] = useState(null); // Store current participant's ID for QR assignment
-  const [isScanned, setIsScanned] = useState(false);  // Flag to check if QR is scanned
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+  const [currentParticipantId, setCurrentParticipantId] = useState(null);
+  const [isScanned, setIsScanned] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Format events string for display
   const formatEvents = (events) => {
@@ -24,21 +24,18 @@ const ParticipantList = () => {
       .replace('UIUX', 'UI/UX');
   };
 
-  // Handle QR assignment navigation
   const handleAssignQR = (participantId) => {
-    console.log(`Assign QR button clicked for participant ID: ${participantId}`);
     setCurrentParticipantId(participantId);
-    setIsQRModalOpen(true);  // Open the modal when the button is clicked
-    setIsScanned(false);  // Reset the scanned state when opening modal
+    setIsQRModalOpen(true);
+    setIsScanned(false);
   };
 
   const handleCloseModal = () => {
-    setIsQRModalOpen(false);  // Close the modal
-    setIsScanned(false);  // Reset the scanned state
-    window.location.reload(); // Refresh the page
+    setIsQRModalOpen(false);
+    setIsScanned(false);
+    window.location.reload();
   };
 
-  // Handle search across all fields
   const handleSearch = (e) => {
     setPage(1);
     const term = e.target.value.toLowerCase();
@@ -60,26 +57,24 @@ const ParticipantList = () => {
     }
   };
 
-  // Fetch and sort participants data
   useEffect(() => {
     const fetchParticipants = async () => {
-      console.log("Fetching participants..."); // Debug log
+      setIsLoading(true);
       try {
         const response = await axios.get(`${API_BASE_URL}/api/users`);
-        // Sort participants by ID
         const sortedParticipants = response.data.sort((a, b) => a.id - b.id);
         setParticipants(sortedParticipants);
         setFilteredParticipants(sortedParticipants);
         setNumberofpages(Math.ceil(sortedParticipants.length / limit));
-        console.log("Participants fetched:", sortedParticipants); // Debug log
       } catch (error) {
         console.error("Error fetching participants:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchParticipants();
   }, [limit]);
 
-  // Pagination handlers
   const handlePrevPage = () => {
     if (page > 1) setPage(page - 1);
   };
@@ -90,8 +85,8 @@ const ParticipantList = () => {
 
   const getPageNumbers = () => {
     const pages = [];
-    const startPage = Math.max(1, page - 2);
-    const endPage = Math.min(numberofpages, page + 2);
+    const startPage = Math.max(1, page - 1);
+    const endPage = Math.min(numberofpages, page + 1);
 
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
@@ -99,88 +94,144 @@ const ParticipantList = () => {
     return pages;
   };
 
-  // Handle QR scan result
   const handleQRScan = (data) => {
-    if (isScanned) return;  // Prevent further scans once QR has been captured
-    console.log("QR Code Data:", data); // Debug log
-    // Perform additional actions with the scanned data here
-    setIsScanned(true);  // Mark QR as scanned
-    handleCloseModal();  // Close the modal after QR is scanned
+    if (isScanned) return;
+    console.log("QR Code Data:", data);
+    setIsScanned(true);
+    handleCloseModal();
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+        <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-lg text-gray-600">Loading participants...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="bg-white h-14 border-b border-gray-300 justify-center items-center flex font-poppins font-semibold text-xl text-blue-600">
-      Participant list
+      <div className="bg-white h-14 border-b border-gray-300 flex justify-center items-center">
+        <h1 className="font-poppins font-semibold text-lg md:text-xl text-blue-600">
+          Participant list
+        </h1>
       </div>
-      <div className="bg-white rounded-lg shadow-md p-4 my-5 mx-5">
+
+      <div className="bg-white rounded-lg shadow-md p-2 md:p-4 mx-2 my-3 md:my-5 md:mx-5">
         <input
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder="Search participants"
-          className="w-full p-2 rounded-md border border-gray-300"
+          className="w-full p-2 rounded-md border border-gray-300 mb-4"
         />
-        <div className="overflow-x-auto mt-5">
+
+        {/* Mobile View: Card Layout */}
+        <div className="md:hidden">
+          {filteredParticipants.slice((page - 1) * limit, page * limit).map((participant) => (
+            <div key={participant.id} className="bg-gray-50 rounded-lg p-3 mb-3">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-semibold">ID: {participant.id}</span>
+                {participant.qr_id ? (
+                  <span className="text-green-600 font-medium">
+                    QR: {participant.qr_id}
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => handleAssignQR(participant.id)}
+                    className="bg-blue-600 text-white px-3 py-1 text-sm rounded-md hover:bg-[#2d2170] transition-all duration-200"
+                  >
+                    Assign QR
+                  </button>
+                )}
+              </div>
+              <div className="space-y-1">
+                <p><span className="font-medium">Name:</span> {participant.name}</p>
+                <p><span className="font-medium">Team:</span> {participant.team_name}</p>
+                <p><span className="font-medium">Events:</span> {formatEvents(participant.events_registered_for)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Table Layout */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
               <tr>
                 <th className="px-4 py-2 text-left text-gray-600">ID</th>
                 <th className="px-4 py-2 text-left text-gray-600">Name</th>
                 <th className="px-4 py-2 text-left text-gray-600">Team</th>
+                <th className="px-4 py-2 text-left text-gray-600">Email</th>
                 <th className="px-4 py-2 text-left text-gray-600">Events</th>
-                <th className="px-4 py-2 text-left text-gray-600">Action</th>
+                <th className="px-4 py-2 text-left text-gray-600">QR ID</th>
               </tr>
             </thead>
             <tbody>
               {filteredParticipants.slice((page - 1) * limit, page * limit).map((participant) => (
                 <tr key={participant.id}>
-                  <td className="px-4 py-2">{participant.id}</td>
-                  <td className="px-4 py-2">{participant.name}</td>
-                  <td className="px-4 py-2">{participant.team_name}</td>
-                  <td className="px-4 py-2">{formatEvents(participant.events_registered_for)}</td>
-                  <td className="py-4 px-2 text-center">
-                      {participant.qr_id ? (
-                        <span className="text-green-600 font-medium">
-                          {participant.qr_id}
-                        </span>
-                      ) : (
-                        <button
-                          onClick={() => handleAssignQR(participant.id)}
-                          className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-[#2d2170] transition-all duration-200"
-                        >
-                          Assign QR
-                        </button>
-                      )}
-                    </td>
+                  <td className="px-4 py-2 ">{participant.id}</td>
+                  <td className="px-4 py-2 ">{participant.name}</td>
+                  <td className="px-4 py-2 ">{participant.team_name}</td>
+                  <td className="px-4 py-2 ">{participant.email}</td>
+                  <td className="px-4 py-2 ">{formatEvents(participant.events_registered_for)}</td>
+                  <td className="py-4 px-2 text-left">
+                    {participant.qr_id ? (
+                      <span className="text-green-600 font-medium">
+                        {participant.qr_id}
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => handleAssignQR(participant.id)}
+                        className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-[#2d2170] transition-all duration-200"
+                      >
+                        Assign QR
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
 
-          <div className="flex justify-between mt-4">
-            <button onClick={handlePrevPage} className="px-4 py-2 bg-gray-500 text-white rounded-md" disabled={page === 1}>
-              Prev
-            </button>
-            <div className="flex space-x-2">
-              {getPageNumbers().map((number) => (
-                <button
-                  key={number}
-                  onClick={() => setPage(number)}
-                  className={`px-4 py-2 rounded-md ${number === page ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
-                >
-                  {number}
-                </button>
-              ))}
-            </div>
-            <button onClick={handleNextPage} className="px-4 py-2 bg-gray-500 text-white rounded-md" disabled={page === numberofpages}>
-              Next
-            </button>
+        {/* Responsive Pagination */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-4">
+          <button 
+            onClick={handlePrevPage} 
+            className="w-full sm:w-auto px-4 py-2 bg-gray-500 text-white rounded-md disabled:opacity-50"
+            disabled={page === 1}
+          >
+            Prev
+          </button>
+          
+          <div className="flex space-x-2">
+            {getPageNumbers().map((number) => (
+              <button
+                key={number}
+                onClick={() => setPage(number)}
+                className={`px-3 py-1 rounded-md ${
+                  number === page 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-white text-black border border-gray-300'
+                }`}
+              >
+                {number}
+              </button>
+            ))}
           </div>
+          
+          <button 
+            onClick={handleNextPage} 
+            className="w-full sm:w-auto px-4 py-2 bg-gray-500 text-white rounded-md disabled:opacity-50"
+            disabled={page === numberofpages}
+          >
+            Next
+          </button>
         </div>
       </div>
 
-      {/* QR Modal */}
       {isQRModalOpen && (
         <QRModal
           onClose={() => setIsQRModalOpen(false)}

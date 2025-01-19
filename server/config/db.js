@@ -29,14 +29,13 @@ pool.on('error', (err) => {
     console.error('Unexpected error on idle client', err);
     process.exit(1);
 });
-
 const query = async (text, params) => {
     const client = await pool.connect();
     try {
         const res = await client.query(text, params);
         return res;
     } catch (error) {
-        console.error("Error running query!", error.stack);
+        console.error("Error running query!", error.detail);
         throw error;
     } finally {
         if (client) {

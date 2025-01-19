@@ -32,5 +32,53 @@ export const UsersModel = {
         const result = await query(sql);
         return result.rows;
     },
+
+    //checkIn or checkOut
+    async checkInDSA(uuid) {
+      
+        const sql = `UPDATE users SET event_dsa_checkin = TRUE WHERE qr_uuid = $1 AND event_dsa_checkin = FALSE;`;
+        const result = await query(sql, [uuid]);
+        return result.rowCount === 1;
+        
+    },
+
+    async checkOutDSA(uuid) {
+        const sql = `UPDATE users SET event_dsa_checkout = TRUE WHERE qr_uuid = $1 AND event_dsa_checkin = TRUE AND event_dsa_checkout = FALSE;`;
+        const result = await query(sql, [uuid]);
+        return result.rowCount === 1;
+    },
+
+    async checkInUIUX(uuid) {
+        const sql = `UPDATE users SET event_uiux_checkin = TRUE WHERE qr_uuid = $1 AND event_uiux_checkin = FALSE;`;
+        const result = await query(sql, [uuid]);
+        return result.rowCount === 1;
+    },
+
+    async checkOutUIUX(uuid) {
+        const sql = `UPDATE users SET event_uiux_checkout = TRUE WHERE qr_uuid = $1 AND event_uiux_checkin = TRUE AND event_uiux_checkout = FALSE ;`;
+        const result = await query(sql, [uuid]);
+        return result.rowCount === 1;
+    },
+
+    async checkInCTF(uuid) {
+        const sql = `UPDATE users SET event_ctf_checkin = TRUE WHERE qr_uuid = $1 AND event_ctf_checkin = FALSE;`;
+        const result = await query(sql, [uuid]);
+        return result.rowCount === 1;
+    },
+
+    async checkOutCTF(uuid) {
+        const sql = `UPDATE users SET event_ctf_checkout = TRUE WHERE qr_uuid = $1 AND event_ctf_checkin = TRUE AND event_ctf_checkout = FALSE ;`;
+        const result = await query(sql, [uuid]);
+        return result.rowCount === 1;
+    },
+
+    async checkEvents(uuid) {
+        const sql = `SELECT events_registered_for FROM users WHERE qr_uuid = $1;`;
+        const result = await query(sql, [uuid]);
+        if (result.rowCount === 0) {
+            return undefined;
+        }
+        return result.rows[0].events_registered_for;
+    }
     
 };

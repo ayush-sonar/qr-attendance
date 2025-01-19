@@ -35,7 +35,7 @@ export const QrsController = {
             const qr = await QrsModel.assignQrToUser(uuid, userId);
             res.json(qr);
         } catch (error) {
-            console.error('Error assigning QR to user:', error);
+            console.error('Error assigning QR to user:', error.detail);
             res.status(500).json({ message: 'Failed to assign QR' });
         }
     },

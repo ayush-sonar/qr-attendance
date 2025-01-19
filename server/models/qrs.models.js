@@ -35,7 +35,6 @@ export const QrsModel = {
         `;
 
         const QRresult = await query(updateQrSql, [userId, uuid]);
-        console.log("DEBUGGG", QRresult.rows[0].id);
         const qrId = QRresult.rows[0].id;
         const userResult = await query(updateUserSql, [uuid, qrId, userId]);
         return userResult.rows[0];

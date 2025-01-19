@@ -7,6 +7,9 @@ const router = express.Router();
 // User routes
 router.post('/users', UsersController.createUser);
 router.get('/users/:uuid', UsersController.getUserByQr);
+router.post('/dsa/:uuid', UsersController.checkInOrOutDSA);
+router.post('/uiux/:uuid', UsersController.checkInOrOutUIUX);
+router.post('/ctf/:uuid', UsersController.checkInOrOutCTF);
 router.get('/users', UsersController.getAllUsers);
 
 // QR routes
