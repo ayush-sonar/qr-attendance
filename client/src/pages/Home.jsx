@@ -1,10 +1,9 @@
 import React from "react";
-import ParticipantList from "../components/ParticipantList";
+import ParticipantList from "./ParticipantList";
 
 function Home() {
   return (
     <>
-      HELLO WORLD
       <ParticipantList />
     </>
   );
