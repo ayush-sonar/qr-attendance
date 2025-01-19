@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import axios from 'axios';
 
+
+const API_BASE_URL = 'https://qr-attendance-74dy.onrender.com';
+
 const CheckModal = ({ onClose, event, task }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +23,7 @@ const CheckModal = ({ onClose, event, task }) => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/${event}/${result[0].rawValue}`, 
+        `${API_BASE_URL}/api/${event}/${result[0].rawValue}`, 
         { task }
       );
       

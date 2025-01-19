@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import axios from 'axios';
 
+const API_BASE_URL = 'https://qr-attendance-74dy.onrender.com';
+
 const QRModal = ({ onClose }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +21,7 @@ const QRModal = ({ onClose }) => {
 
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/${result[0].rawValue}`);
+      const response = await axios.get(`${API_BASE_URL}/api/users/${result[0].rawValue}`);
       setUserData(response.data);
     } catch (err) {
       console.error('Error fetching user data:', err);

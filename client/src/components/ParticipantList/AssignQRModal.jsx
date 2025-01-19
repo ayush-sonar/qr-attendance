@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import axios from 'axios';
 
+const API_BASE_URL = 'https://qr-attendance-74dy.onrender.com';
+
+
 const QRModal = ({ onClose, onScan, participantId }) => {
   const [error, setError] = useState(null);
   const [isAssigning, setIsAssigning] = useState(false);
@@ -21,7 +24,7 @@ const QRModal = ({ onClose, onScan, participantId }) => {
 
     setIsAssigning(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/qrs/assign', {
+      const response = await axios.post(`${API_BASE_URL}/api/qrs/assign`, {
         uuid: result[0].rawValue,
         userId: participantId
       });

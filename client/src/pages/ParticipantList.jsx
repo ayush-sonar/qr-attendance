@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import QRModal from "../components/ParticipantList/AssignQRModal";
 
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://qr-attendance-74dy.onrender.com';
 
 const ParticipantList = () => {
   const [participants, setParticipants] = useState([]);
