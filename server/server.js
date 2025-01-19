@@ -8,7 +8,7 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
+    origin: ['http://localhost:5174','https://qr-attendance-74dy.onrender.com'], // Your frontend URL
     credentials: true // If you're using cookies
   }));
 
