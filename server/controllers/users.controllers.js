@@ -27,17 +27,6 @@ export const UsersController = {
         }
     },
 
-    async assignQr(req, res) {
-        try {
-            const { userId, uuid } = req.body;
-            const user = await UsersModel.assignQrToUser(userId, uuid);
-            res.json(user);
-        } catch (error) {
-            console.error('Error assigning QR to user:', error);
-            res.status(500).json({ message: 'Failed to assign QR' });
-        }
-    },
-
     //get all users
     async getAllUsers(req, res) {
         try {

@@ -14,6 +14,7 @@ export const UsersModel = {
             userData.number,
             userData.events_registered_for,
             userData.qr_uuid || null,
+            userData.qr_ID || null,
         ];
         const result = await query(sql, values);
         return result.rows[0];
@@ -25,21 +26,11 @@ export const UsersModel = {
         return result.rows[0];
     },
 
-    async assignQrToUser(userId, uuid) {
-        const sql = `
-            UPDATE users
-            SET qr_uuid = $1
-            WHERE id = $2
-            RETURNING *;
-        `;
-        const result = await query(sql, [uuid, userId]);
-        return result.rows[0];
-    },
-
     //get all users
     async getAllUsers() {
         const sql = `SELECT * FROM users;`;
         const result = await query(sql);
         return result.rows;
     },
+    
 };

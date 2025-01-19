@@ -18,13 +18,26 @@ export const QrsModel = {
     },
 
     async assignQrToUser(uuid, userId) {
-        const sql = `
+        // Update both tables in sequence
+        const updateQrSql = `
             UPDATE qr
             SET user_id = $1
             WHERE uuid = $2
             RETURNING *;
         `;
-        const result = await query(sql, [userId, uuid]);
-        return result.rows[0];
+
+        const updateUserSql = `
+            UPDATE users
+            SET qr_uuid = $1, qr_id = $2
+            WHERE id = $3
+            RETURNING *;
+
+        `;
+
+        const QRresult = await query(updateQrSql, [userId, uuid]);
+        console.log("DEBUGGG", QRresult.rows[0].id);
+        const qrId = QRresult.rows[0].id;
+        const userResult = await query(updateUserSql, [uuid, qrId, userId]);
+        return userResult.rows[0];
     },
 };
