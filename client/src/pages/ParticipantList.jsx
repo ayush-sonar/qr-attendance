@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import QRModal from "../components/QRModal";
+import QRModal from "../components/ParticipantList/AssignQRModal";
 
 const API_BASE_URL = 'http://localhost:5000';
 
@@ -110,15 +110,9 @@ const ParticipantList = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="bg-white h-14 border-b border-gray-300" />
-      <div className="flex items-center bg-white h-24 my-6 mx-4 md:mx-10 rounded-lg border border-gray-300">
-        
-        <div className="ml-4 md:ml-9">
-          <h1 className="text-[#9C9C9C] font-poppins text-[16px] md:text-[18px] font-medium leading-normal">Participants List</h1>
-          <h1 className="text-black font-poppins text-[16px] md:text-[18px] font-medium leading-normal">View and manage event participants</h1>
-        </div>
+      <div className="bg-white h-14 border-b border-gray-300 justify-center items-center flex font-poppins font-semibold text-xl text-blue-600">
+      Participant list
       </div>
-
       <div className="bg-white rounded-lg shadow-md p-4 my-5 mx-5">
         <input
           type="text"
@@ -153,7 +147,7 @@ const ParticipantList = () => {
                       ) : (
                         <button
                           onClick={() => handleAssignQR(participant.id)}
-                          className="bg-[#533FCC] text-white px-4 py-1 rounded-md hover:bg-[#2d2170] transition-all duration-200"
+                          className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-[#2d2170] transition-all duration-200"
                         >
                           Assign QR
                         </button>
