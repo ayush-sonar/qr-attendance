@@ -30,14 +30,22 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg">
-        <div className="p-6 space-y-4">
-          <h1 className="text-2xl font-bold text-center mb-6">Welcome</h1>
+    <div className="min-h-screen bg-[#052B48] p-8 z-0">
+<img
+        src="/assets/Noise.svg"
+        alt="Background Noise"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      {/* <div className="" */}
+      <div className="max-w-md mx-auto bg-blue-200  blue rounded-lg shadow-lg">
+        <div className="p-6 space-y-4 z-50">
+          <img src="/assets/LOGO.svg"></img>
+               
+          {/* <h3 className="text-2xl font-monospace text-center mb-6">Welcome TO The CODECRAFT</h3> */}
           
           <div className="grid gap-4">
             <button 
-              className="w-full h-12 flex items-center justify-start space-x-2 px-4
+              className="w-full h-12 flex items-center justify-start space-x-2 px-4 bg-white
                          border border-gray-300 rounded-lg hover:bg-gray-50
                          transition-colors duration-200"
               onClick={() => window.location.href = '/participants'}
@@ -47,7 +55,7 @@ const Home = () => {
             </button>
 
             <button 
-              className="w-full h-12 flex items-center justify-start space-x-2 px-4
+              className="w-full h-12 flex items-center justify-start space-x-2 px-4 bg-white
                          border border-gray-300 rounded-lg hover:bg-gray-50
                          transition-colors duration-200"
               onClick={() => setShowQRModal(true)}
@@ -59,7 +67,7 @@ const Home = () => {
             {/* DSA Section */}
             <div className="space-y-2">
               <button 
-                className="w-full h-12 flex items-center justify-between px-4
+                className="w-full h-12 flex items-center justify-between px-4 bg bg-white
                            border border-gray-300 rounded-lg hover:bg-gray-50
                            transition-colors duration-200"
                 onClick={() => toggleEventButtons('dsa')}
@@ -76,14 +84,14 @@ const Home = () => {
                   <button 
                     onClick={() => handleCheckScan('dsa', 'checkin')}
                     className="h-10 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600
-                             transition-colors duration-200"
+                             transition-colors duration-200 bg-white "
                   >
                     Check In
                   </button>
                   <button 
                     onClick={() => handleCheckScan('dsa', 'checkout')}
                     className="h-10 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600
-                             transition-colors duration-200"
+                             transition-colors duration-200 bg-white"
                   >
                     Check Out
                   </button>
@@ -96,7 +104,7 @@ const Home = () => {
               <button 
                 className="w-full h-12 flex items-center justify-between px-4
                            border border-gray-300 rounded-lg hover:bg-gray-50
-                           transition-colors duration-200"
+                           transition-colors duration-200 bg-white"
                 onClick={() => toggleEventButtons('uiux')}
               >
                 <div className="flex items-center space-x-2">
@@ -131,7 +139,7 @@ const Home = () => {
               <button 
                 className="w-full h-12 flex items-center justify-between px-4
                            border border-gray-300 rounded-lg hover:bg-gray-50
-                           transition-colors duration-200"
+                           transition-colors duration-200 bg-white"
                 onClick={() => toggleEventButtons('ctf')}
               >
                 <div className="flex items-center space-x-2">
