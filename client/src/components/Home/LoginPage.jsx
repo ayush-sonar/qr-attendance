@@ -11,7 +11,11 @@ const Login = () => {
       />
 
     <div className="relative z-10 flex flex-row space-y-6">
-        <div className="flex space-x-4">
+        <div className="flex flex-col">
+        <img
+            src="/assets/triathlon.svg"
+            className="h-100 w-100 "
+          />
           <img
             src="/assets/codecraft.svg"
             className="h-200 w-200"
@@ -30,13 +34,13 @@ const Login = () => {
               htmlFor="username"
               className="block text-gray-900 text-md font-semibold mb-2"
             >
-              Username
+              Email
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
