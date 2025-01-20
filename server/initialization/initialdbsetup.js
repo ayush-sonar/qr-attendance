@@ -43,6 +43,14 @@ CREATE TABLE IF NOT EXISTS qr (
 );
 `;
 
+const createAdminsTable = 
+`CREATE TABLE admins (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+`;
+
 const setup = async () => {
     try {
         const response = await pool.query(createEnum);
@@ -51,6 +59,8 @@ const setup = async () => {
         console.log("Created users table:", response2);
         const response3 = await pool.query(createQrTable);
         console.log("Created qr table:", response3);
+        const response4 = await pool.query(createAdminsTable);
+        console.log("Created admins table:", response4);
     } catch (error) {
         console.error("Error setting up the database!", error.stack);
         throw error;
