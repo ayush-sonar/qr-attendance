@@ -2,14 +2,33 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-950">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+  <div className="flex-col px-10 py-40 items-center min-h-screen bg-blue-950">
+
+      <img
+        src="/assets/Noise.svg"
+        alt="Background Noise"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+
+    <div className="relative z-10 flex flex-row space-y-6">
+        <div className="flex space-x-4">
+          <img
+            src="/assets/codecraft.svg"
+            className="h-200 w-200"
+          />
+        </div> 
+    </div> 
+    
+
+
+
+      <div className="bg-blue-300 p-8 rounded-lg shadow-md w-703">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         <form>
           <div className="mb-4">
             <label
               htmlFor="username"
-              className="block text-gray-700 text-sm font-semibold mb-2"
+              className="block text-gray-900 text-md font-semibold mb-2"
             >
               Username
             </label>
@@ -25,7 +44,7 @@ const Login = () => {
           <div className="mb-6">
             <label
               htmlFor="password"
-              className="block text-gray-700 text-sm font-semibold mb-2"
+              className="block text-gray-900 text-md font-semibold mb-2"
             >
               Password
             </label>
@@ -47,6 +66,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+   
   );
 };
 
