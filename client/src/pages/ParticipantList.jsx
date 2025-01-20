@@ -149,6 +149,7 @@ const ParticipantList = () => {
               <div className="space-y-1">
                 <p><span className="font-medium">Name:</span> {participant.name}</p>
                 <p><span className="font-medium">Team:</span> {participant.team_name}</p>
+                <p><span className="font-medium">Email:</span> {participant.email}</p>
                 <p><span className="font-medium">Events:</span> {formatEvents(participant.events_registered_for)}</p>
               </div>
             </div>
