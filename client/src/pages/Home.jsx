@@ -30,11 +30,11 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#052B48] p-8 z-0">
+    <div className="relative min-h-screen bg-[#052B48] p-8 z-0">
 <img
         src="/assets/Noise.svg"
         alt="Background Noise"
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-[-10]"
       />
       {/* <div className="" */}
       <div className="max-w-md mx-auto bg-blue-200  blue rounded-lg shadow-lg">
@@ -84,14 +84,14 @@ const Home = () => {
                   <button 
                     onClick={() => handleCheckScan('dsa', 'checkin')}
                     className="h-10 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600
-                             transition-colors duration-200 bg-white "
+                             transition-colors duration-200 "
                   >
                     Check In
                   </button>
                   <button 
                     onClick={() => handleCheckScan('dsa', 'checkout')}
                     className="h-10 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600
-                             transition-colors duration-200 bg-white"
+                             transition-colors duration-200"
                   >
                     Check Out
                   </button>
