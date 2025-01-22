@@ -5,6 +5,7 @@ export const UsersController = {
     async createUser(req, res) {
         try {
             const userData = req.body;
+            console.log(userData);
             const user = await UsersModel.createUser(userData);
             res.status(201).json(user);
         } catch (error) {

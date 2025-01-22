@@ -3,8 +3,8 @@ import { query } from '../config/db.js';
 export const UsersModel = {
     async createUser(userData) {
         const sql = `
-            INSERT INTO users (name, team_name, email, number, events_registered_for, qr_uuid)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO users (name, team_name, email, number, events_registered_for, qr_uuid,qr_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
         `;
         const values = [
@@ -14,7 +14,7 @@ export const UsersModel = {
             userData.number,
             userData.events_registered_for,
             userData.qr_uuid || null,
-            userData.qr_ID || null,
+            userData.qr_id || null,
         ];
         const result = await query(sql, values);
         return result.rows[0];
