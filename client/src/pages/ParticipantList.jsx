@@ -9,7 +9,7 @@ const ParticipantList = () => {
   const [filteredParticipants, setFilteredParticipants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
-  const [limit] = useState(25);
+  const [limit] = useState(50);
   const [numberofpages, setNumberofpages] = useState(1);
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [currentParticipantId, setCurrentParticipantId] = useState(null);
