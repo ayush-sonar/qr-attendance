@@ -20,7 +20,7 @@ const navigate = useNavigate();
 
       if (response.data.message === 'Login successful') {
         console.log('Login successful');
-        navigate(`/`, {replace:true});
+        navigate(`/home`, {replace:true});
       } else {
         alert('Invalid credentials');
       }
