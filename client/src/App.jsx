@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home'
 import ParticipantList from './pages/ParticipantList';
 import LoginPage from './components/Home/LoginPage';
-
+ import Protected from "./Protected";
 function App() {
 
   return (
@@ -13,7 +13,11 @@ function App() {
     <Router>
       <Routes>
       <Route path='/' element={<LoginPage />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/home' 
+        element={
+          <Protected allowedRoles={['admin']}>
+          <Home />
+          </Protected>} />
         <Route path='/participants' element={<ParticipantList />} />
       </Routes>
     </Router>

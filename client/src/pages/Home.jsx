@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import QRModal from '../components/Home/QRModal';
 import CheckModal from '../components/Home/CheckModal';
 
+
 const Home = () => {
   const [showQRModal, setShowQRModal] = useState(false);
   const [showCheckModal, setShowCheckModal] = useState(false);
@@ -27,6 +28,7 @@ const Home = () => {
     setSelectedEvent(event);
     setSelectedTask(task);
     setShowCheckModal(true);
+
   };
 
   return (

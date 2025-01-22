@@ -2,12 +2,15 @@ import React, { useState } from "react";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {setUser} from "../../redux/userSlice"
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -22,7 +25,8 @@ const Login = () => {
 
       if (response.data.message === "Login successful") {
         console.log("Login successful");
-        navigate("/home", { replace: true });
+        navigate("/home", {  replace: true });
+        dispatch(setUser(response.data.admin))
       } else {
         alert("Invalid credentials");
       }
