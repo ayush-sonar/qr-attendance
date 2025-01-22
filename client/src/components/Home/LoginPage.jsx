@@ -32,11 +32,7 @@ const navigate = useNavigate();
   return (
   <div className="flex-col px-10 py-40 items-center min-h-screen bg-blue-950">
 
-      {/* <img
-        src="/assets/Noise.svg"
-        alt="Background Noise"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      /> */}
+    
 
     <div className="relative z-10 flex flex-row space-y-6">
         <div className="flex flex-col">
