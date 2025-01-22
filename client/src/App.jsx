@@ -18,7 +18,11 @@ function App() {
           <Protected allowedRoles={['admin']}>
           <Home />
           </Protected>} />
-        <Route path='/participants' element={<ParticipantList />} />
+        <Route path='/participants'
+
+         element={<Protected allowedRoles={['admin']}>
+          <ParticipantList /> 
+          </Protected>} />
       </Routes>
     </Router>
     </>
