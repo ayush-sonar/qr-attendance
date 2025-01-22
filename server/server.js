@@ -9,7 +9,7 @@ import { AdminController } from './controllers/admin.controllers.js';
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:5173','https://qr-attendance-henna.vercel.app'], // Your frontend URL
+    origin: ['http://localhost:5174','https://qr-attendance-henna.vercel.app'], // Your frontend URL
     credentials: true // If you're using cookies
   }));
 

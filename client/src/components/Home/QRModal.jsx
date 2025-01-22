@@ -51,6 +51,7 @@ const QRModal = ({ onClose }) => {
       { label: 'CTF Check-out', value: userData.event_ctf_checkout ? 'Yes' : 'No' },
       { label: 'DSA Check-in', value: userData.event_dsa_checkin ? 'Yes' : 'No' },
       { label: 'DSA Check-out', value: userData.event_dsa_checkout ? 'Yes' : 'No' },
+      { label: 'QR ID', value: userData.qr_id},
     ];
 
     return (
